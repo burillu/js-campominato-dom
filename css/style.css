@@ -21,3 +21,17 @@
     color: black;
 
 }
+.bomb{
+    background-color: red;
+}
+.fa-bomb{
+    animation: explosion;
+}
+/* animazione ripetuta all'infinito */
+@keyframes explosion {
+    from{
+        /* scalato 1 */
+    }to{
+        /* scalato 1.5 */
+    }
+}
