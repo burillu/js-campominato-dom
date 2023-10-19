@@ -1,6 +1,12 @@
 
-// costante difficoltà
+campoMinato();
+
+function campoMinato(){
+
+    // costante difficoltà
 const difficulty = 100;
+//costante bombe
+const BOMB_NUM= 16;
 
 //prendo il bottone
 const btnPlay = document.getElementById('play-btn');
@@ -19,6 +25,7 @@ function createGrid() {
 
 
 }
+//creo un singolo quadrato
 function createSquare(divCont, index,diff){
     const square = document.createElement('div');
     const lineItems = Math.sqrt(diff);
@@ -33,6 +40,31 @@ function createSquare(divCont, index,diff){
         console.log(`cella attivata: ${this.innerHTML}`);
     }
 }
+
+//creo un array di numeri casuali diversi
+function bomber(){
+    let bombs=[];
+    let count=0;
+    while(bombs.length<BOMB_NUM){
+        let num = getRndInteger(1,difficulty);
+        if (!bombs.includes(num)) {
+            bombs.push(num);            
+        }
+    }
+    return console.log(bombs);
+}
+bomber();
+
+
+
+
+
+
+
+
+}
+
+
 
 
 
