@@ -48,6 +48,7 @@ function campoMinato() {
         square.addEventListener('click', activeBox)
         divCont.append(square);
         function activeBox() {
+            this.removeEventListener('click', activeBox);
             const numSelCell = parseInt(this.innerHTML);
             console.log(numSelCell);
             if (!bombsCell.includes(numSelCell)) {
