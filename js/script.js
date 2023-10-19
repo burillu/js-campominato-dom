@@ -9,11 +9,15 @@ function campoMinato() {
     const BOMB_NUM = 16;
     //array bombe;
     let bombsCell;
+    //punteggio
+    let score = 0;
+    let gameOver;
 
     //prendo il bottone
     const btnPlay = document.getElementById('play-btn');
     //aggiungo listener
     btnPlay.addEventListener('click', playGame);
+
 
     //funzione on click
     function playGame() {
@@ -28,6 +32,10 @@ function campoMinato() {
             createSquare(divPlayground, i, difficulty);
 
         }
+        //prendo la griglia creata
+        const gridGround = divPlayground.innerHTML;
+
+
 
 
 
@@ -48,18 +56,25 @@ function campoMinato() {
         square.addEventListener('click', activeBox)
         divCont.append(square);
         function activeBox() {
+            if (gameOver || score === (difficulty - BOMB_NUM)) {
+                this.removeEventListener('click', activeBox);
+                console.log('Il gioco è terminato! Questo è il tuo Punteggio: ' + score);
+                return
+            }
             this.removeEventListener('click', activeBox);
             const numSelCell = parseInt(this.innerHTML);
             console.log(numSelCell);
             if (!bombsCell.includes(numSelCell)) {
                 this.classList.add('active');
+                score++;
                 console.log(`cella attivata: ${this.innerHTML}`);
             } else {
                 //bomberInstaller();
                 this.classList.add('bomb');
                 this.innerHTML = `<i class="fa-solid fa-bomb"></i>`;
+                gameOver = true;
             }
-
+            console.log('Il tuo punteggio è:' + score);
 
         }
     }
