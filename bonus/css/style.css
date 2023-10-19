@@ -23,15 +23,19 @@
 }
 .bomb{
     background-color: red;
+    color: black;
 }
 .fa-bomb{
     animation: explosion;
+    animation-duration: 0.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
 }
 /* animazione ripetuta all'infinito */
 @keyframes explosion {
     from{
-        /* scalato 1 */
+    transform: scale(1);    /* scalato 1 */
     }to{
-        /* scalato 1.5 */
+     transform: scale(1.2);   /* scalato 1.5 */
     }
 }
