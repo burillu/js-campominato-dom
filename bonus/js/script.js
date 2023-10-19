@@ -24,6 +24,7 @@ function campoMinato() {
     //funzione on click
     function playGame() {
         gameOver = null;
+        score = 0;
 
 
         divPlayground.innerHTML = '';
@@ -77,29 +78,34 @@ function campoMinato() {
             //const gridGround = divPlayground;
             if (gameOver || score === (difficulty - BOMB_NUM)) {
                 //console.log(gridGround);
-                neverClick(divPlayground);
+                // neverClick(activeBox);
 
                 this.removeEventListener('click', activeBox);
                 console.log('Il gioco è terminato! Questo è il tuo Punteggio: ' + score);
-                return
+
             }
             this.removeEventListener('click', activeBox);
             const numSelCell = parseInt(this.innerHTML);
             console.log(numSelCell);
-            if (!bombsCell.includes(numSelCell)) {
+            if (!bombsCell.includes(numSelCell) && !gameOver) {
                 this.classList.add('active');
                 score++;
                 console.log(`cella attivata: ${numSelCell}`);
             } else {
                 //bomberInstaller();
-                this.classList.add('bomb');
-                this.innerHTML = `<i class="fa-solid fa-bomb"></i>`;
+                // this.classList.add('bomb');
+                // this.innerHTML = `<i class="fa-solid fa-bomb"></i>`;
                 gameOver = true;
                 console.log('Ecco le Bombe');
                 // visualizzare bombe
-                //bombDefuse();
+
             }
             console.log('Il tuo punteggio è:' + score);
+            if (gameOver) {
+                bombDefuse();
+                neverClick(activeBox);
+
+            }
 
         }
     }
@@ -125,33 +131,42 @@ function campoMinato() {
     }
 
     // rimuvo listener da tutti le celle
-    function neverClick() {
+    function neverClick(activeBox) {
         for (let index = 0; index < divPlayground.length; index++) {
             const element = divPlayground[index];
-            console.log(element);
-            //element.removeEventListener('click', fn);
-            if (bombsCell.includes(index+1)){
-                element.classList.add('bomb');
-                element.innerHTML = `<i class="fa-solid fa-bomb"></i>`;
-                console.log('bombaaaaaaaaa al numero' + (index+1) );
+            element.removeEventListener('click', activeBox);
+            
+        }
+    }
+    // bombe scoperte
+    function bombDefuse() {
+        const divCell = divPlayground.getElementsByClassName('box');
+
+        for (let index = 0; index < divCell.length; index++) {
+            const element = index + 1;
+            if (bombsCell.includes(element)) {
+                divCell[index].classList.add('bomb');
+                divCell[index].innerHTML = `<i class="fa-solid fa-bomb"></i>`;
 
             }
 
 
         }
-    }
-    // bombe scoperte
-    function bombDefuse() {
-        for (let index = 0; index < bombsCell.length; index++) {
-            const element = bombsCell[index];
-            console.log('lelelele', element);
-            const bomb= divPlayground[element];
-            console.dir(bomb);
-            bomb.classList.add('bomb');
-            bomb.innerHTML = `<i class="fa-solid fa-bomb"></i>`;
-            console.log('bombaaaaaaaaa al numero' + (index + 1));
+        return console.log('Hai perso');
 
-        }
+        // for (let index = 0; index < bombsCell.length; index++) {
+        //     const divCell= divPlayground.getElementsByClassName('box');
+        //     if () 
+        //     return console.log(num);
+        // const element = bombsCell[index];
+        // console.log('lelelele', element);
+        // const bomb= divPlayground[element];
+        // console.dir(bomb);
+        // bomb.classList.add('bomb');
+        // bomb.innerHTML = `<i class="fa-solid fa-bomb"></i>`;
+        //     console.log('bombaaaaaaaaa al numero' + (index + 1));
+
+        // }
     }
 
 
