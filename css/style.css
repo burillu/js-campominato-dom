@@ -1,0 +1,23 @@
+#playground{
+    width: 600px;
+    height: 600px;
+    background-color: black;
+    color: white;
+    margin: 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+.box{
+    width:calc(100% / 10);
+    height: calc(100% / 10);
+    border: 2px solid white;
+    cursor: crosshair;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.active{
+    background-color: aqua;
+    color: black;
+
+}
