@@ -8,8 +8,8 @@
     flex-wrap: wrap;
 }
 .box{
-    width:calc(100% / 10);
-    height: calc(100% / 10);
+    /* width:calc(100% / 10);
+    height: calc(100% / 10); */
     border: 2px solid white;
     cursor: crosshair;
     display: flex;

@@ -26,5 +26,5 @@ Copiamo la griglia fatta ieri nella nuova repo e aggiungiamo la logica del gioco
 >
 >*Ad esempio:
 Di cosa ho bisogno per generare i numeri?
-Proviamo sempre prima con dei `console.log()` per capire se stiamo ricevendo i dati giusti.
+Proviamo sempre prima con dei* `console.log()` *per capire se stiamo ricevendo i dati giusti.
 Le validazioni e i controlli possiamo farli anche in un secondo momento.*

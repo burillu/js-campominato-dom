@@ -13,15 +13,18 @@ function createGrid() {
     divPlayground.innerHTML='';
     for (let i = 0; i < difficulty; i++) {
         // creo singolo quadrato
-        createSquare(divPlayground, i);
+        createSquare(divPlayground, i,difficulty);
 
     }
 
 
 }
-function createSquare(divCont, index){
+function createSquare(divCont, index,diff){
     const square = document.createElement('div');
+    const lineItems = Math.sqrt(diff);
     square.classList.add('box');
+    square.style.width= `calc( 100% / ${lineItems})`;
+    square.style.height= `calc( 100% / ${lineItems})`;
     square.innerText= index + 1;
     square.addEventListener('click', activeBox)
     divCont.append(square);
