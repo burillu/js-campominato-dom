@@ -5,7 +5,7 @@
 campoMinato();
 
 function campoMinato() {
-    let difficulty=0;
+    let difficulty = 0;
     //costante bombe
     const BOMB_NUM = 16;
     //array bombe;
@@ -13,8 +13,8 @@ function campoMinato() {
     //punteggio
     let score = 0;
     let gameOver;
-
-
+    // prendo il container #playground
+    const divPlayground = document.getElementById('playground');
     //prendo il bottone
     const btnPlay = document.getElementById('play-btn');
     //aggiungo listener
@@ -23,21 +23,21 @@ function campoMinato() {
 
     //funzione on click
     function playGame() {
-        gameOver=null;
-        // prendo il container #playground
-        const divPlayground = document.getElementById('playground');
+        gameOver = null;
+
+
         divPlayground.innerHTML = '';
         //prendo input difficoltà
         // prendo il valore della select difficoltà
         const selectDiff = document.getElementById('difficulty');
         console.log(selectDiff.value);
         //variabile difficoltà
-        
-        if (selectDiff.value=== 'easy') {
+
+        if (selectDiff.value === 'easy') {
             difficulty = 100;
-        } else if (selectDiff.value=== 'medium'){
+        } else if (selectDiff.value === 'medium') {
             difficulty = 81;
-        } else if (selectDiff.value=== 'hard'){
+        } else if (selectDiff.value === 'hard') {
             difficulty = 49;
         }
         console.log(difficulty);
@@ -51,8 +51,6 @@ function campoMinato() {
             createSquare(divPlayground, i, difficulty);
 
         }
-        //prendo la griglia creata
-        const gridGround = divPlayground.innerHTML;
 
 
 
@@ -75,7 +73,12 @@ function campoMinato() {
         square.addEventListener('click', activeBox)
         divCont.append(square);
         function activeBox() {
+            //prendo la griglia creata
+            //const gridGround = divPlayground;
             if (gameOver || score === (difficulty - BOMB_NUM)) {
+                //console.log(gridGround);
+                neverClick(divPlayground);
+
                 this.removeEventListener('click', activeBox);
                 console.log('Il gioco è terminato! Questo è il tuo Punteggio: ' + score);
                 return
@@ -86,12 +89,15 @@ function campoMinato() {
             if (!bombsCell.includes(numSelCell)) {
                 this.classList.add('active');
                 score++;
-                console.log(`cella attivata: ${this.innerHTML}`);
+                console.log(`cella attivata: ${numSelCell}`);
             } else {
                 //bomberInstaller();
                 this.classList.add('bomb');
                 this.innerHTML = `<i class="fa-solid fa-bomb"></i>`;
                 gameOver = true;
+                console.log('Ecco le Bombe');
+                // visualizzare bombe
+                //bombDefuse();
             }
             console.log('Il tuo punteggio è:' + score);
 
@@ -113,11 +119,40 @@ function campoMinato() {
     }
     //installo le bombe nel campo
     function bomberInstaller() {
-        console.log(this);
+        //console.log(this);
         this.classList.add('bomb');
         this.innerHTML = `<i class="fa-solid fa-bomb"></i>`
     }
 
+    // rimuvo listener da tutti le celle
+    function neverClick() {
+        for (let index = 0; index < divPlayground.length; index++) {
+            const element = divPlayground[index];
+            console.log(element);
+            //element.removeEventListener('click', fn);
+            if (bombsCell.includes(index+1)){
+                element.classList.add('bomb');
+                element.innerHTML = `<i class="fa-solid fa-bomb"></i>`;
+                console.log('bombaaaaaaaaa al numero' + (index+1) );
+
+            }
+
+
+        }
+    }
+    // bombe scoperte
+    function bombDefuse() {
+        for (let index = 0; index < bombsCell.length; index++) {
+            const element = bombsCell[index];
+            console.log('lelelele', element);
+            const bomb= divPlayground[element];
+            console.dir(bomb);
+            bomb.classList.add('bomb');
+            bomb.innerHTML = `<i class="fa-solid fa-bomb"></i>`;
+            console.log('bombaaaaaaaaa al numero' + (index + 1));
+
+        }
+    }
 
 
     //bomba
